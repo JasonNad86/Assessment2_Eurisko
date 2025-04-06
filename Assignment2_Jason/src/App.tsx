@@ -1,39 +1,84 @@
-import { useState } from 'react';
-import Navbar from './components/NavBar';
-import UserCard from './components/UserCard';
-import './App.css'
+import Navbar from "./components/NavBar";
+import UserCard from "./components/UserCard";
 
 const sampleUsers = [
-  { firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', status: 'Active', dob: '1990-05-15' },
-  { firstName: 'Jane', lastName: 'Smith', email: 'jane.smith@example.com', status: 'Locked', dob: '1988-10-22' },
-  { firstName: 'Alice', lastName: 'Brown', email: 'alice.brown@example.com', status: 'Active', dob: '1995-04-11' },
-  { firstName: 'Robert', lastName: 'Johnson', email: 'robert.johnson@example.com', status: 'Active', dob: '1985-12-30' },
-  { firstName: 'Emily', lastName: 'Davis', email: 'emily.davis@example.com', status: 'Locked', dob: '1993-08-20' },
-  { firstName: 'Michael', lastName: 'Miller', email: 'michael.miller@example.com', status: 'Active', dob: '1991-03-02' },
-  { firstName: 'Sarah', lastName: 'Wilson', email: 'sarah.wilson@example.com', status: 'Active', dob: '1996-07-09' },
-  { firstName: 'David', lastName: 'Anderson', email: 'david.anderson@example.com', status: 'Locked', dob: '1989-11-05' },
+  {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    status: "Active",
+    dob: "1990-05-15",
+  },
+  {
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane.smith@example.com",
+    status: "Locked",
+    dob: "1988-10-22",
+  },
+  {
+    firstName: "Alice",
+    lastName: "Johnson",
+    email: "alice.johnson@example.com",
+    status: "Active",
+    dob: "1995-02-10",
+  },
+  {
+    firstName: "Bob",
+    lastName: "",
+    email: "bob.martin@example.com",
+    status: "Locked",
+    dob: "1980-08-05",
+  },
+  {
+    firstName: "Charlie",
+    lastName: "Brown",
+    email: "charlie.brown@example.com",
+    status: "Active",
+    dob: "1992-11-30",
+  },
+  {
+    firstName: "David",
+    lastName: "Lee",
+    email: "david.lee@example.com",
+    status: "Locked",
+    dob: "1987-07-14",
+  },
+  {
+    firstName: "Eve",
+    lastName: "",
+    email: "eve.green@example.com",
+    status: "Active",
+    dob: "1993-09-21",
+  },
+  {
+    firstName: "Grace",
+    lastName: "Black",
+    email: "grace.black@example.com",
+    status: "Locked",
+    dob: "1985-03-17",
+  },
+  {
+    firstName: "Hannah",
+    lastName: "",
+    email: "hannah.purple@example.com",
+    status: "Active",
+    dob: "1996-12-03",
+  },
 ];
 
 function App() {
-  const [query, setQuery] = useState('');
-
-  const filteredUsers = sampleUsers.filter((user) =>
-    `${user.firstName} ${user.lastName}`.toLowerCase().includes(query.toLowerCase())
-  );
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="p-4 max-w-7xl mx-auto">
+      <div className="p-4 mx-auto">
         <input
           type="text"
           placeholder="Search users..."
-          className="w-full p-2 mb-4 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          className="w-[250px] p-2 mb-4 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredUsers.map((user, idx) => (
+          {sampleUsers.map((user, idx) => (
             <UserCard key={idx} user={user} />
           ))}
         </div>
