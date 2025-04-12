@@ -1,23 +1,46 @@
-import { FaMoon, FaRegMoon } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useAuthStore, useThemeStore } from "../zustand/store";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+  const { isDark, toggleTheme } = useThemeStore();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
-    <nav className="bg-[#3251D0] text-white p-4 flex justify-between items-center shadow">
-      <h1 className="text-xl font-bold">User Management</h1>
-      <div className="flex gap-3">
-        <button className="bg-white text-[#3251D0] font-medium px-4 py-1 rounded hover:bg-gray-100 transition">
+    <nav className="bg-blue-800 dark:bg-gray-800 text-white p-4 flex justify-between items-center shadow-lg">
+      <h1 className="text-xl font-bold dark:text-gray-200">User Management</h1>
+      
+      <div className="flex items-center gap-4">
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg hover:bg-blue-700 dark:hover:bg-gray-700 transition-colors"
+        >
+          {isDark ? (
+            <FaSun className="w-5 h-5 text-yellow-400" />
+          ) : (
+            <FaMoon className="w-5 h-5 text-blue-200" />
+          )}
+        </button>
+
+        <button
+          className="bg-white text-blue-800 dark:bg-gray-700 dark:text-white font-medium px-4 py-2 rounded-md 
+            hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+        >
           Create User
         </button>
-        <button className="bg-red-500 text-white font-medium px-4 py-1 rounded hover:bg-red-600 transition">
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-md 
+            transition-colors"
+        >
           Logout
-        </button>
-        <button className="group px-4 py-1 transition">
-          <span className="block group-hover:hidden">
-            <FaRegMoon />
-          </span>
-          <span className="hidden group-hover:block">
-            <FaMoon />
-          </span>
         </button>
       </div>
     </nav>
