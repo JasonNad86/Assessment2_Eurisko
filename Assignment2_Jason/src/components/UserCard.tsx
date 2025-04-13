@@ -1,11 +1,11 @@
-// src/components/UserCard.tsx
+import { memo } from "react";
 import { User } from "../types/User";
 
 type Props = {
   user: User | null;
 };
 
-export default function UserCard({ user }: Props) {
+ function UserCard({ user }: Props) {
   if (!user) {
     return (
       <div className="bg-white dark:bg-gray-700 shadow p-4 rounded-lg text-center">
@@ -42,3 +42,5 @@ export default function UserCard({ user }: Props) {
     </div>
   );
 }
+
+export default memo(UserCard);
