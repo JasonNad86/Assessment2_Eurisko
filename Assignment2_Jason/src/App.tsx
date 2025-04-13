@@ -1,4 +1,3 @@
-// src/App.tsx
 import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 import { useThemeStore } from './zustand/store';
