@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 function App() {
   const { isDark } = useThemeStore()
 
-  // Sync theme state with HTML class
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark)
   }, [isDark])
