@@ -30,11 +30,13 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
-      if (response.ok) {
+      if (data.status === 200) {
         login(data.result.data.accessToken, data.result.data.expiresIn);
         navigate("/dashboard");
+      } else if (data.status === 401) {
+        setError(data.result.message || "Invalid email or password.");
       } else {
-        setError(data.result.message || "Login failed");
+        setError("Unexpected error occurred. Please try again.");
       }
     } catch (err) {
       setError("Network error. Please try again.");
@@ -50,7 +52,7 @@ export default function LoginPage() {
           Login
         </h1>
         {error && (
-          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md text-sm">
+          <div className="mb-4 p-2 text-red-700 rounded-md text-sm">
             {error}
           </div>
         )}
