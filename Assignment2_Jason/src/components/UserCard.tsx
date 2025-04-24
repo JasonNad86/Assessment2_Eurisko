@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { User } from "../types/User";
+import { User } from"../../mock/mock.type"
 
 type Props = {
   user: User | null;
@@ -26,11 +26,11 @@ type Props = {
       </h2>
       <p className="text-sm text-start text-gray-600 dark:text-gray-300">{user.email}</p>
       <p className="text-sm text-start dark:text-gray-300">
-        Status: <span className={user.status === 'ACTIVE' ? 'text-green-500' : 'text-red-500'}>
+        Status: <span className={user.status === 'active' ? 'text-green-500' : 'text-red-500'}>
           {user.status}
         </span>
       </p>
-      <p className="text-sm text-start dark:text-gray-300">Date of Birth: {user.dob}</p>
+      <p className="text-sm text-start dark:text-gray-300">Date of Birth: {user.dateOfBirth}</p>
       <div className="flex justify-end gap-2 mt-3">
         <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">
           Edit

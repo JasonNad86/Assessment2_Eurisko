@@ -1,45 +1,29 @@
-// src/pages/UsersPage.tsx
-import { useEffect, useState } from 'react';
-import { useAuthStore } from '../zustand/store';
+import { useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import UserCard from '../components/UserCard';
 import Navbar from '../components/NavBar';
-import { User } from '../types/User';
+import { QueryKeys } from '../constants/query-keys';
+import { getUsers } from '../api/users/get-user';
+import {useDebounce} from 'use-debounce'; 
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const accessToken = useAuthStore((state) => state.accessToken);
+  const [debouncedSearch] = useDebounce(search, 500); 
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        const response = await fetch(`/api/users?search=${search}`, {
-          headers: { 
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        });
+  const getUsersQuery = useQuery({
+    queryKey:[QueryKeys.USERS, debouncedSearch],
+    queryFn: ({ signal }) => getUsers({
+      search: debouncedSearch,
+      config: { signal }
+    }),
+    staleTime: 1000 * 60 * 5,
+  });
 
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.result?.message || 'Failed to fetch users');
-        }
-        setUsers(data.result?.data?.users || []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred');
-        setUsers([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const debounceTimer = setTimeout(fetchUsers, 500);
-    return () => clearTimeout(debounceTimer);
-  }, [search, accessToken]);
+  const users = useMemo(
+    () => getUsersQuery.data ?? [],
+    [getUsersQuery.data]
+  );
+  console.log("Users:",users)
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -55,13 +39,13 @@ export default function UsersPage() {
             dark:border-gray-600 dark:text-white"
         />
 
-        {error && (
+        {getUsersQuery.isError && (
           <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-md">
-            {error}
+            {getUsersQuery.error ? getUsersQuery.error.message : 'Failed to fetch users'}
           </div>
         )}
 
-        {loading ? (
+        {getUsersQuery.isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           </div>
