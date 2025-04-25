@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <nav className="bg-blue-800 dark:bg-gray-800 text-white p-4 flex justify-between items-center shadow-lg">
       <h1 className="text-xl font-bold dark:text-gray-200">User Management</h1>
-      
+
       <div className="flex items-center gap-4">
         <button
           onClick={toggleTheme}
@@ -29,6 +29,7 @@ export default function Navbar() {
         </button>
 
         <button
+          onClick={() => navigate("/dashboard/new")}
           className="bg-white text-blue-800 dark:bg-gray-700 dark:text-white font-medium px-4 py-2 rounded-md 
             hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
         >

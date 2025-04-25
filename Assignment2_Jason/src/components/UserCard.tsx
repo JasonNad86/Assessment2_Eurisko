@@ -26,7 +26,7 @@ type Props = {
       </h2>
       <p className="text-sm text-start text-gray-600 dark:text-gray-300">{user.email}</p>
       <p className="text-sm text-start dark:text-gray-300">
-        Status: <span className={user.status === 'active' ? 'text-green-500' : 'text-red-500'}>
+        Status: <span className={user.status.toLowerCase() === 'active' ? 'text-green-500' : 'text-red-500'}>
           {user.status}
         </span>
       </p>
