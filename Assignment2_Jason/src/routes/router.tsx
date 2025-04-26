@@ -3,6 +3,7 @@ import LoginPage from '../pages/LoginPage';
 import UsersPage from '../pages/UserPage';
 import ProtectedRoute from '../components/ProtectedRoute';
 import AddUserPage from '../pages/AddUserPage';
+import EditUserPage from '../pages/EditUserPage';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/new',
         element: <AddUserPage />,
+      },
+      {
+        path:'/dashboard/edit/:id',
+        element:<EditUserPage/>
       },
     ],
   },

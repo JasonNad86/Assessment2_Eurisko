@@ -5,6 +5,7 @@ import Navbar from '../components/NavBar';
 import { QueryKeys } from '../constants/query-keys';
 import { getUsers } from '../api/users/get-user';
 import {useDebounce} from 'use-debounce'; 
+import { User } from '../../mock/mock.type';
 
 export default function UsersPage() {
   const [search, setSearch] = useState("");
@@ -51,7 +52,7 @@ export default function UsersPage() {
           </div>
         ) : users.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {users.map((user) => (
+            {users.map((user:User) => (
               <UserCard key={user.id} user={user} />
             ))}
           </div>

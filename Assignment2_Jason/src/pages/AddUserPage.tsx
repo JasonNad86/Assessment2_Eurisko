@@ -5,6 +5,8 @@ import {useForm} from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../api/users/create-user";
 import { QueryKeys } from "../constants/query-keys";
+import { toast } from "react-hot-toast";
+
 export default function AddUserPage() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -30,10 +32,11 @@ export default function AddUserPage() {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.USERS] });
       reset();
       navigate('/dashboard');
+      toast.success("User added successfully!");
     },
-    onError: (error) => {
-      console.error("Error creating user:", error);
-    }
+    onError: () => {
+      toast.error("Failed to add user.");
+    },
   });
 
   const onSubmit = (data: UserSchema) => {

@@ -1,13 +1,6 @@
 import { instance } from "../config";
-import { User } from "../../../mock/mock.type";
-import { AxiosRequestConfig } from 'axios';
-
-interface GetUsersParams {
-  search?: string;
-  config?: AxiosRequestConfig;
-}
-
-export async function getUsers({ search, config }: GetUsersParams = {}): Promise<User[]> {
+import { GetUsersParams } from "../types";
+export async function getUsers({ search, config }: GetUsersParams){
   const params = {
     ...(search && { search }),
     ...config?.params,
