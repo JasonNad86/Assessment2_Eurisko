@@ -15,7 +15,6 @@ instance.interceptors.request.use((config) => {
     return config;
   });
   
-  // Response interceptor for error handling
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
