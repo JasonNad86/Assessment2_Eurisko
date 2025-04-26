@@ -13,7 +13,7 @@ type Props = {
  function UserCard({ user }: Props) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [showConfirm, setShowConfirm] = useState(false); // ⬅️ modal state
+  const [showConfirm, setShowConfirm] = useState(false); 
 
   const deleteMutation = useMutation({
     mutationFn: deleteUser,
